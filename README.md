@@ -1,5 +1,8 @@
-These notes are for myself as I develope my own Python Flask/ REST API understanding.
+REST API with Flask and Python
+Credit: Jose Salvatierra - Teclado
 
+About:
+This simple REST API serves as my own springboard for other projects.  
 
 Using PIPENV virtual environment with the following dependencies:
 1. Flask
