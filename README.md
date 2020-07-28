@@ -2,8 +2,8 @@ These notes are for myself as I develope my own Python Flask/ REST API understan
 
 
 Using PIPENV virtual environment with the following dependencies:
-1. flask
-2. flask-restful
+1. Flask
+2. Flask-RESTful
 3. Flask-JWT
 
 

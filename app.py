@@ -27,13 +27,13 @@ class Item(Resource):
         # be one item in the query, we wrap list in next() to only
         # return first item that matches query. Next() can break our
         # code if the list is empty, so None is also used as a default value.
-        item = next(list(filter(lambda x: x['name'] == name, items)), None)
+        item = next(iter(filter(lambda x: x['name'] == name, items)), None)
 
         # If item not in database:
         return {'item': item}, 200 if item else 404
 
     def post(self, name):
-        if next(list(filter(lambda x: x['name'] == name, items)), None):
+        if next(iter(filter(lambda x: x['name'] == name, items)), None) is not None:
             return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
         # Get JSON payload from request
