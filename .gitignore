@@ -2,5 +2,6 @@ sandbox/
 templates/
 tutorial_build/
 .vscode/
+data.db
 Pipfile
 Pipfile.lock
