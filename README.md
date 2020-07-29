@@ -2,7 +2,7 @@
 ## Credit: Jose Salvatierra - Teclado
 
 ### About this repo:
-This simple REST API serves as my own springboard for other projects.  It implements Flask, RESTful architecture, user authentication, SQL and SQLAlchemy, Heroku, nginx, DNS, SSL, and token refreshing.
+This simple REST API serves as my own springboard for other projects.  It implements Flask, RESTful architecture, user authentication, SQL and SQLAlchemy, Heroku, nginx, DNS, SSL, and token refreshing.  Features will be added to different branches and merged to master when complete.  Check branch history for most recent commits.
 
 ### Setting things up:
 
