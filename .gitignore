@@ -2,7 +2,7 @@ sandbox/
 templates/
 tutorial_build/
 .vscode/
-users.db
+data.db
 temp_SQL.py
 Pipfile
 Pipfile.lock
