@@ -45,7 +45,17 @@ class Item(Resource):
 
         # Get JSON payload from request
         item = {'name': name, 'price': data['price']}
+        
+        # Add item to db with insert classmethod
+        try:
+            self.insert(item)
+        except:
+            return {"message": "An error occured inserting the item."}, 500 # Internal server error
+        
+        return item, 201
 
+    @classmethod
+    def insert(cls, item):
         # The usual database operations... connect, add, commit, close db connection
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
@@ -55,8 +65,6 @@ class Item(Resource):
 
         connection.commit()
         connection.close()
-        
-        return item, 201
 
     def delete(self, name):     #DELETE
 
@@ -74,16 +82,47 @@ class Item(Resource):
 
     def put(self, name):        # UPDATE
 
-        data = Item.parser.parse_args()     # calling parser tool defined at begining of Item class
-        item = next(filter(lambda x: x['name'] == name, items), None)
+        data = Item.parser.parse_args()
+        # item = next(filter(lambda x: x['name'] == name, items), None)
+        item = self.find_by_name(name)
+        updated_item = {'name': name, 'price': data['price']}
 
         if item is None:
-            item = {'name': name, 'price': data['price']}
-            items.append(item)
+            try:
+                self.insert(updated_item)
+            except:
+                return {"message": "An error occurred inserting the item."}, 500        
         else:
-            item.update(data)
-        return item
+            try:
+                self.update(updated_item)
+            except:
+                return {"message": "An error occurred updating the item."}, 500
+        return updated_item
+
+    @classmethod
+    def update(cls, item):
+        # The usual database operations... connect, add, commit, close db connection
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "UPDATE items SET price=? WHERE name=?"
+        cursor.execute(query, (item['price'], item['name']))
+
+        connection.commit()
+        connection.close()
             
 class ItemList(Resource):
     def get(self):
+        # The usual database operations... connect, add, commit, close db connection
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "SELECT * FROM items"
+        result = connection.execute(query)
+        items = []
+        for row in result:
+            items.append({'name': row[0], 'price': row[1]})
+
+        connection.close()
+
         return {'items': items}
