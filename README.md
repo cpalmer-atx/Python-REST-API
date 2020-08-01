@@ -13,6 +13,7 @@ Using PIPENV virtual environment with the following dependencies:
 1. `$ pipenv install Flask`
 2. `$ pipenv install Flask-RESTful`
 3. `$ pipenv install Flask-JWT`
+4. `$ pipenv install Flask-SQLAlchemy`
 
 Once virtual environment is initialized and set up with our dependancies, remember to launch the environment to ensure global packages aren't changed:
 
