@@ -33,38 +33,47 @@ class Item(Resource):
         
         # Add item to db with insert classmethod
         try:
-            item.insert()
+            item.save_to_db()
         except:
             return {"message": "An error occured inserting the item."}, 500 # Internal server error  
         return item.json(), 201
 
     def delete(self, name):     #DELETE
-        # The usual database operations... connect, add, commit, close db connection
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-        query = "DELETE FROM items WHERE name=?"
-        cursor.execute(query, (name,))
-        connection.commit()
-        connection.close()
+        item = ItemModel.find_by_name(name)
+        if item:
+            item.delete_from_db()
 
-        return {'message': "{} deleted".format(name)}
+        return {'message': 'Item deleted'}
+
+        # # The usual database operations... connect, add, commit, close db connection
+        # connection = sqlite3.connect('data.db')
+        # cursor = connection.cursor()
+        # query = "DELETE FROM items WHERE name=?"
+        # cursor.execute(query, (name,))
+        # connection.commit()
+        # connection.close()
+
+        # return {'message': "{} deleted".format(name)}
 
     def put(self, name):        # UPDATE
         data = Item.parser.parse_args()
         item = ItemModel.find_by_name(name)
-        updated_item = ItemModel(name, data['price'])
+        # updated_item = ItemModel(name, data['price'])
 
         if item is None:
-            try:
-                updated_item.insert()
-            except:
-                return {"message": "An error occurred inserting the item."}, 500        
+            item = ItemModel(name, data['price'])
+            # try:
+            #     updated_item.save_to_db()
+            # except:
+            #     return {"message": "An error occurred inserting the item."}, 500        
         else:
-            try:
-                updated_item.update()
-            except:
-                return {"message": "An error occurred updating the item."}, 500
-        return updated_item.json()
+            item.price = data['price']
+            # try:
+            #     updated_item.delete_from_db()
+            # except:
+            #     return {"message": "An error occurred updating the item."}, 500
+        item.save_to_db()
+        return item.json()
 
             
 class ItemList(Resource):
