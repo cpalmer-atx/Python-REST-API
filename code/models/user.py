@@ -13,34 +13,44 @@ class UserModel(db.Model):
         self.username = username
         self.password = password
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # def delete_from_db(self):
+    #     db.session.remove(self)
+    #     db.session.commit()
+
     @classmethod
     def find_by_username(cls, username):
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
+        return cls.query.filter_by(username=username).first()
+        # connection = sqlite3.connect('data.db')
+        # cursor = connection.cursor()
 
-        query = "SELECT * FROM users WHERE username=?"
-        result = cursor.execute(query, (username,))
-        row = result.fetchone()
-        if row is not None:
-            user = cls(*row)     # (id, user, password)
-        else:
-            user = None
+        # query = "SELECT * FROM users WHERE username=?"
+        # result = cursor.execute(query, (username,))
+        # row = result.fetchone()
+        # if row is not None:
+        #     user = cls(*row)     # (id, user, password)
+        # else:
+        #     user = None
 
-        connection.close()
-        return user
+        # connection.close()
+        # return user
 
     @classmethod
     def find_by_id(cls, _id):
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
+        return cls.query.filter_by(id=_id).first()
+        # connection = sqlite3.connect('data.db')
+        # cursor = connection.cursor()
 
-        query = "SELECT * FROM users WHERE id=?"
-        result = cursor.execute(query, (_id,))
-        row = result.fetchone()
-        if row is not None:
-            user = cls(*row)     # (id, user, password)
-        else:
-            user = None
+        # query = "SELECT * FROM users WHERE id=?"
+        # result = cursor.execute(query, (_id,))
+        # row = result.fetchone()
+        # if row is not None:
+        #     user = cls(*row)     # (id, user, password)
+        # else:
+        #     user = None
 
-        connection.close()
-        return user
+        # connection.close()
+        # return user
