@@ -10,6 +10,11 @@ class Item(Resource):
     parser.add_argument('price',
         type=float,
         required=True,
+        help="Every item needs a store id."
+    )
+    parser.add_argument('store_id',
+        type=int,
+        required=True,
         help="Item price cannot be left blank."
     )
     
@@ -29,7 +34,7 @@ class Item(Resource):
         data = Item.parser.parse_args()
 
         # Get JSON payload from request
-        item = ItemModel(name, data['price'])
+        item = ItemModel(name, data['price'], data['store_id'])
         
         # Add item to db with insert classmethod
         try:
@@ -61,7 +66,7 @@ class Item(Resource):
         # updated_item = ItemModel(name, data['price'])
 
         if item is None:
-            item = ItemModel(name, data['price'])
+            item = ItemModel(name, data['price'], data['store_id'])
             # try:
             #     updated_item.save_to_db()
             # except:

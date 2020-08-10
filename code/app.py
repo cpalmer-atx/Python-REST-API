@@ -15,8 +15,8 @@ app.secret_key = 'chad'                 # obviously this isn't how we'd call our
 api = Api(app)
 
 @app.before_first_request
-def create_tables():
-    db.create_all()
+def create_tables():                    # This replaces the create_tables.py and creates
+    db.create_all()                     # data.db and respective tables from line 12
 
 jwt = JWT(app, authenticate, identity)  # /auth
 
