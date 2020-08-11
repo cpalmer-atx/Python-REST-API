@@ -10,12 +10,12 @@ class Item(Resource):
     parser.add_argument('price',
         type=float,
         required=True,
-        help="Every item needs a store id."
+        help="Item price cannot be left blank."
     )
     parser.add_argument('store_id',
         type=int,
         required=True,
-        help="Item price cannot be left blank."
+        help="Every item needs a store id."
     )
     
     @jwt_required()

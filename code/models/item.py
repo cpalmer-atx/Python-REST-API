@@ -13,7 +13,7 @@ class ItemModel(db.Model):
     # table.  In this example, Items are mapped to stores, and stores
     # can't be deleted as long as items are linked to it.
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
-    store = db.releationship('StoreModel')
+    store = db.relationship('StoreModel')
 
     def __init__(self, name, price, store_id):
 
