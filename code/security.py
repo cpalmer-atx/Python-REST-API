@@ -1,4 +1,4 @@
-from werkzeug.security import safe_str_cmp # For safe string comparisions
+from werkzeug.security import safe_str_cmp
 from models.user import UserModel
 
 def authenticate(username, password):
