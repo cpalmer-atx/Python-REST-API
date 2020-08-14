@@ -1,8 +1,5 @@
-sandbox/
-templates/
-tutorial_build/
 .vscode/
+__pycache__/
 data.db
-temp_SQL.py
 Pipfile
 Pipfile.lock

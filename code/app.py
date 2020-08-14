@@ -8,7 +8,6 @@ from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 from db import db
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -16,8 +15,8 @@ app.secret_key = 'chad'                 # obviously this isn't how we'd call our
 api = Api(app)
 
 @app.before_first_request
-def create_tables():                    # This replaces the create_tables.py and creates
-    db.create_all()                     # data.db and respective tables from line 12
+def create_tables():
+    db.create_all()
 
 jwt = JWT(app, authenticate, identity)  # /auth
 
@@ -26,7 +25,6 @@ api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
 api.add_resource(StoreList, '/stores')
 api.add_resource(UserRegister, '/register')
-
 
 if __name__ == "__main__":
     db.init_app(app)
